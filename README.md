@@ -2,7 +2,23 @@
 
 **Corsair.el** is an Emacs package that extends [GPTel](https://github.com/karthink/gptel) with functions for text accumulation along the lines of [Cursor](https://www.cursor.com/).
 
-### Features:
+## Install Guide
+
+Corsair.el extends GPTel, so ensure GPTel is already installed.
+
+You can install **Corsair.el** using `use-package` with `straight.el` for package management. Add the following to your Emacs configuration:
+
+```elisp
+(use-package corsair
+  :straight (:host github
+             :repo "rob137/corsair"
+             :files ("corsair.el")) ; Load the specific file
+  :defer t ; Optional: Load lazily
+  :after gptel ; Ensure gptel is loaded before corsair
+  )
+```
+
+## Features:
 
 See [corsair.el](./corsair.el) for the full list of bindings.
 
