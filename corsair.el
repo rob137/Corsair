@@ -1,6 +1,10 @@
 ;;; corsair.el --- Enhancements for GPTel with context accumulation and file expansion
 ;;; Commentary:
 ;;; Code:
+
+(require 'project)
+(require 'subr-x)  ;; For string-prefix-p
+
 ;; 1. Open or switch to the GPTel chat buffer
 (defun open-gptel-chat-buffer ()
   "Open or switch to the *GPTel Chat* buffer and set it up for GPTel."
@@ -100,6 +104,42 @@
         (erase-buffer)
         (message "GPTel chat buffer cleared.")))))
 
+;; 9. Expand @filename with fuzzy matching
+(defun corsair-project-files ()
+  "Return a list of files in the current project."
+  (let ((project (project-current)))
+    (if project
+        (project-files project)
+      (error "No project found"))))
+
+(defun corsair-expand-at-filename ()
+  "Expand @filename at point to the contents of the matched file in the project."
+  (interactive)
+  (let* ((end (point))
+         (start (save-excursion
+                  (search-backward "@" nil t)
+                  (point)))
+         (symbol (buffer-substring-no-properties start end)))
+    (if (and (string-prefix-p "@" symbol)
+             (> (length symbol) 1))
+        (let* ((filename-fragment (substring symbol 1))  ;; Remove '@'
+               (project-files (corsair-project-files))
+               ;; Set the completion styles to flex for fuzzy matching
+               (completion-styles '(flex))
+               ;; Perform completion
+               (matched-file (completing-read
+                              (format "Select file (default %s): " filename-fragment)
+                              project-files
+                              nil nil filename-fragment)))
+          ;; Replace @filename with the contents of the matched file
+          (let ((file-content (with-temp-buffer
+                                (insert-file-contents matched-file)
+                                (buffer-string))))
+            (delete-region start end)
+            (insert file-content)
+            (message "Inserted contents of %s" matched-file)))
+      (error "No @filename at point or filename is empty"))))
+
 ;; Define key bindings for the GPTel shadowed functions
 (global-set-key (kbd "C-c g c") 'open-gptel-chat-buffer)                  ;; Open GPTel chat buffer
 (global-set-key (kbd "C-c g a c") 'gptel-accumulate-file-path-and-contents) ;; Accumulate file path and contents
@@ -107,3 +147,10 @@
 (global-set-key (kbd "C-c g a v") 'gptel-accumulate-file-path)             ;; Accumulate file path
 (global-set-key (kbd "C-c g a w") 'gptel-accumulate-selected-text)         ;; Accumulate selected text
 (global-set-key (kbd "C-c g a D") 'gptel-drop-accumulated-buffer)          ;; Drop GPTel chat buffer
+
+;; Define key binding for @filename expansion
+(global-set-key (kbd "C-c g @") 'corsair-expand-at-filename)
+
+(provide 'corsair)
+
+;;; corsair.el ends here
