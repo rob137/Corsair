@@ -1,6 +1,6 @@
 # Corsair.el
 
-**Corsair.el** is an Emacs package that extends [GPTel](https://github.com/karthink/gptel) with functions for text accumulation along the lines of [Cursor](https://www.cursor.com/).
+**Corsair.el** is an Emacs package that helps gather text for LLM prompts via [GPTel](https://github.com/karthink/gptel).
 
 ## Install Guide
 
