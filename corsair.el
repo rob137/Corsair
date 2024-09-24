@@ -6,7 +6,7 @@
 (require 'subr-x)  ;; For string-prefix-p
 
 ;; 1. Open or switch to the GPTel chat buffer
-(defun open-gptel-chat-buffer ()
+(defun corsair-open-chat-buffer ()
   "Open or switch to the *GPTel Chat* buffer and set it up for GPTel."
   (interactive)
   (let ((buffer (get-buffer-create "*GPTel Chat*")))
@@ -21,7 +21,7 @@
 (setq gptel-default-session "Chat")
 
 ;; 2. Accumulate file path and contents into the GPTel chat buffer
-(defun accumulate-file-path-and-contents-to-chat ()
+(defun corsair-accumulate-file-path-and-contents-to-chat ()
   "Append file path and contents to the GPTel chat buffer."
   (interactive)
   (when buffer-file-name
@@ -34,7 +34,7 @@
         (message "File path and contents accumulated to chat buffer.")))))
 
 ;; 3. Accumulate selected text into the GPTel chat buffer
-(defun accumulate-selected-text-to-chat ()
+(defun corsair-accumulate-selected-text-to-chat ()
   "Append selected text to the GPTel chat buffer."
   (interactive)
   (when (use-region-p)
@@ -48,7 +48,7 @@
 ;; GPTel-specific versions of accumulation functions
 
 ;; 4. Accumulate file path and contents into the GPTel chat buffer
-(defun gptel-accumulate-file-path-and-contents ()
+(defun corsair-accumulate-file-path-and-contents ()
   "Append file path and contents to the GPTel chat buffer."
   (interactive)
   (when buffer-file-name
@@ -61,7 +61,7 @@
         (message "File path and contents accumulated to GPTel chat buffer.")))))
 
 ;; 5. Accumulate file name into the GPTel chat buffer
-(defun gptel-accumulate-file-name ()
+(defun corsair-accumulate-file-name ()
   "Append file name to the GPTel chat buffer."
   (interactive)
   (when buffer-file-name
@@ -72,7 +72,7 @@
         (message "File name accumulated to GPTel chat buffer.")))))
 
 ;; 6. Accumulate file path into the GPTel chat buffer
-(defun gptel-accumulate-file-path ()
+(defun corsair-accumulate-file-path ()
   "Append file path to the GPTel chat buffer."
   (interactive)
   (when buffer-file-name
@@ -83,7 +83,7 @@
         (message "File path accumulated to GPTel chat buffer.")))))
 
 ;; 7. Accumulate selected text into the GPTel chat buffer
-(defun gptel-accumulate-selected-text ()
+(defun corsair-accumulate-selected-text ()
   "Append selected text to the GPTel chat buffer."
   (interactive)
   (when (use-region-p)
@@ -95,7 +95,7 @@
     (deactivate-mark)))
 
 ;; 8. Drop accumulated buffer content (clear GPTel chat buffer)
-(defun gptel-drop-accumulated-buffer ()
+(defun corsair-drop-accumulated-buffer ()
   "Clear the contents of the GPTel chat buffer."
   (interactive)
   (let ((buf (get-buffer "*GPTel Chat*")))
@@ -162,13 +162,12 @@
                 (message "Inserted contents of %s" matched-path)))))
       (error "No @path at point or path is empty"))))
 
-;; Define key bindings for the GPTel shadowed functions
-(global-set-key (kbd "C-c g c") 'open-gptel-chat-buffer)                  ;; Open GPTel chat buffer
-(global-set-key (kbd "C-c g a c") 'gptel-accumulate-file-path-and-contents) ;; Accumulate file path and contents
-(global-set-key (kbd "C-c g a n") 'gptel-accumulate-file-name)             ;; Accumulate file name
-(global-set-key (kbd "C-c g a v") 'gptel-accumulate-file-path)             ;; Accumulate file path
-(global-set-key (kbd "C-c g a w") 'gptel-accumulate-selected-text)         ;; Accumulate selected text
-(global-set-key (kbd "C-c g a D") 'gptel-drop-accumulated-buffer)          ;; Drop GPTel chat buffer
+(global-set-key (kbd "C-c g c") 'corsair-open-chat-buffer)                  ;; Open chat buffer
+(global-set-key (kbd "C-c g a c") 'corsair-accumulate-file-path-and-contents) ;; Accumulate file path and contents
+(global-set-key (kbd "C-c g a n") 'corsair-accumulate-file-name)             ;; Accumulate file name
+(global-set-key (kbd "C-c g a v") 'corsair-accumulate-file-path)             ;; Accumulate file path
+(global-set-key (kbd "C-c g a w") 'corsair-accumulate-selected-text)         ;; Accumulate selected text
+(global-set-key (kbd "C-c g a D") 'corsair-drop-chat-buffer)          ;; Drop chat buffer
 
 ;; Define key binding for @path expansion
 (global-set-key (kbd "C-c g @") 'corsair-expand-at-path)
