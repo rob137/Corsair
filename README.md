@@ -32,5 +32,4 @@ Features include:
      - Current full (absolute) file path (`C-c g a v`).
      - selected text (`C-c g a w`).
      - Clear the chat buffer (`C-c g a D`).
-2. **File Expansion**:
-   - Expand `@path` to include files or directories within the project using fuzzy matching (`C-c g @`).
+     - Open minibuffer with fido-style fuzzy matching to add file or folder contents (`C-c g f`).
