@@ -167,7 +167,7 @@
 (global-set-key (kbd "C-c g a n") 'corsair-accumulate-file-name)             ;; Accumulate file name
 (global-set-key (kbd "C-c g a v") 'corsair-accumulate-file-path)             ;; Accumulate file path
 (global-set-key (kbd "C-c g a w") 'corsair-accumulate-selected-text)         ;; Accumulate selected text
-(global-set-key (kbd "C-c g a D") 'corsair-drop-chat-buffer)          ;; Drop chat buffer
+(global-set-key (kbd "C-c g a D") 'corsair-drop-accumulated-buffer)  ;; Drop chat buffer
 
 ;; Define key binding for @path expansion
 (global-set-key (kbd "C-c g @") 'corsair-expand-at-path)
