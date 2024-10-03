@@ -1,4 +1,4 @@
-;;; Corsair --- Text accumulation enhancements for GPTel -*- lexical binding: t; -*-
+;;; corsair.el --- Text accumulation enhancements for GPTel -*- lexical-binding: t; -*-
 ;; Author: Robert Kirby <corsair.el.package@gmail.com>
 ;; Maintainer: Robert Kirby <corsair.el.package@gmail.com>
 ;; Version: 0.1
@@ -59,7 +59,7 @@
       (let ((name (file-name-nondirectory buffer-file-name)))
         (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
           (goto-char (point-max))
-          (insert (concat "\n" name "\n"))
+          (insert "\n" name "\n")
           (message "File name accumulated to GPTel chat buffer.")))
     (message "No file associated with this buffer.")))
 
@@ -70,7 +70,7 @@
       (let ((path (buffer-file-name)))
         (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
           (goto-char (point-max))
-          (insert (concat "\n" path "\n"))
+          (insert "\n" name "\n")
           (message "File path accumulated to GPTel chat buffer.")))
     (message "No file associated with this buffer.")))
 
@@ -81,7 +81,7 @@
       (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
         (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
           (goto-char (point-max))
-          (insert (concat "\n" text "\n"))
+          (insert "\n" path "\n")
           (message "Selected text accumulated to GPTel chat buffer."))
         (deactivate-mark))
     (message "No region selected.")))
