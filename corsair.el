@@ -67,10 +67,10 @@
   "Append file path to the GPTel chat buffer."
   (interactive)
   (if buffer-file-name
-      (let ((path (buffer-file-name)))
+      (let ((path buffer-file-name))
         (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
           (goto-char (point-max))
-          (insert "\n" name "\n")
+          (insert "\n" path "\n")
           (message "File path accumulated to GPTel chat buffer.")))
     (message "No file associated with this buffer.")))
 
@@ -81,7 +81,7 @@
       (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
         (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
           (goto-char (point-max))
-          (insert "\n" path "\n")
+          (insert "\n" text "\n")
           (message "Selected text accumulated to GPTel chat buffer."))
         (deactivate-mark))
     (message "No region selected.")))
