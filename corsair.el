@@ -51,45 +51,49 @@
 (defun corsair-accumulate-file-path-and-contents ()
   "Append file path and contents to the GPTel chat buffer."
   (interactive)
-  (unless buffer-file-name
-    (user-error "No file associated with this buffer"))
-  (let* ((path (buffer-file-name))
-         (contents (buffer-string))
-         (data (concat "\n" path "\n" contents "\n")))
-    (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
-      (goto-char (point-max))
-      (insert data))))
+  (cond
+   (buffer-file-name
+    (let* ((path (buffer-file-name))
+           (contents (buffer-string))
+           (data (concat "\n" path "\n" contents "\n")))
+      (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
+        (goto-char (point-max))
+        (insert data))))
+   ((user-error "No file associated with this buffer"))))
 
 (defun corsair-accumulate-file-name ()
   "Append file name to the GPTel chat buffer."
   (interactive)
-  (unless buffer-file-name
-    (user-error "No file associated with this buffer"))
-  (let ((name (file-name-nondirectory buffer-file-name)))
-    (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
-      (goto-char (point-max))
-      (insert "\n" name "\n"))))
+  (cond
+   (buffer-file-name
+    (let ((name (file-name-nondirectory buffer-file-name)))
+      (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
+        (goto-char (point-max))
+        (insert "\n" name "\n"))))
+   ((user-error "No file associated with this buffer"))))
 
 (defun corsair-accumulate-file-path ()
   "Append file path to the GPTel chat buffer."
   (interactive)
-  (unless buffer-file-name
-    (user-error "No file associated with this buffer"))
-  (let ((path buffer-file-name))
-    (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
-      (goto-char (point-max))
-      (insert "\n" path "\n"))))
+  (cond
+   (buffer-file-name
+    (let ((path buffer-file-name))
+      (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
+        (goto-char (point-max))
+        (insert "\n" path "\n"))))
+   ((user-error "No file associated with this buffer"))))
 
 (defun corsair-accumulate-selected-text ()
   "Append selected text to the GPTel chat buffer."
   (interactive)
-  (unless (use-region-p)
-    (user-error "No region selected"))
-  (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
-    (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
-      (goto-char (point-max))
-      (insert "\n" text "\n"))
-    (deactivate-mark)))
+  (cond
+   ((use-region-p)
+    (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
+      (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
+        (goto-char (point-max))
+        (insert "\n" text "\n"))
+      (deactivate-mark)))
+   ((user-error "No region selected"))))
 
 (defun corsair-drop-accumulated-buffer ()
   "Clear the contents of the GPTel chat buffer."
