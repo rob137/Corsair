@@ -101,7 +101,7 @@
   (let ((project (project-current t)))
     (if project
         (project-files project)
-      (error "No project found"))))
+      (user-error "No project found"))))
 
 (defun corsair-insert-file-or-folder-contents ()
   "Insert contents of a selected file / directory from project into GPTel Chat."
@@ -129,9 +129,9 @@
                                 (insert-file-contents full-path)
                                 (buffer-string)))))
              (t
-              (message "Selected path is neither a file nor a directory."))))
+              (user-error "Selected path is neither a file nor a directory"))))
           (message "Inserted contents of %s" path))
-      (error "No project found"))))
+      (user-error "No project found"))))
 
 ;; Suggested Key bindings
 ;; (global-set-key (kbd "C-c g c") #'corsair-open-chat-buffer)                    ;; Open chat buffer
