@@ -8,16 +8,6 @@ Corsair extends GPTel, so ensure GPTel is already installed.
 
 ### Installing via MELPA
 
-Once _Corsair_ is available on MELPA, you can install it directly using Emacs' package management system. To do so, add MELPA to your list of repositories (if not already added) by adding the following to your `init.el` or `.emacs` configuration:
-
-```
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-```
-
-Then, install Corsair with:
-
 ```
 M-x package-refresh-contents
 M-x package-install RET corsair RET
