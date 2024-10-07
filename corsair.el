@@ -49,8 +49,7 @@
          (data (concat "\n" path "\n" contents "\n")))
     (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
       (goto-char (point-max))
-      (insert data))
-    (message "File path and contents accumulated to GPTel chat buffer.")))
+      (insert data))))
 
 (defun corsair-accumulate-file-name ()
   "Append file name to the GPTel chat buffer."
@@ -60,8 +59,7 @@
   (let ((name (file-name-nondirectory buffer-file-name)))
     (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
       (goto-char (point-max))
-      (insert "\n" name "\n"))
-    (message "File name accumulated to GPTel chat buffer.")))
+      (insert "\n" name "\n"))))
 
 (defun corsair-accumulate-file-path ()
   "Append file path to the GPTel chat buffer."
@@ -71,8 +69,7 @@
   (let ((path buffer-file-name))
     (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
       (goto-char (point-max))
-      (insert "\n" path "\n"))
-    (message "File path accumulated to GPTel chat buffer.")))
+      (insert "\n" path "\n"))))
 
 (defun corsair-accumulate-selected-text ()
   "Append selected text to the GPTel chat buffer."
@@ -83,7 +80,6 @@
     (with-current-buffer (get-buffer-create corsair-chat-buffer-name)
       (goto-char (point-max))
       (insert "\n" text "\n"))
-    (message "Selected text accumulated to GPTel chat buffer.")
     (deactivate-mark)))
 
 (defun corsair-drop-accumulated-buffer ()
@@ -92,8 +88,7 @@
   (let ((buf (get-buffer corsair-chat-buffer-name)))
     (if buf
         (with-current-buffer buf
-          (erase-buffer)
-          (message "GPTel chat buffer cleared."))
+          (erase-buffer))
       (message "GPTel chat buffer does not exist."))))
 
 (defun corsair-project-paths ()
