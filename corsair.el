@@ -38,6 +38,7 @@
   :type 'string
   :group 'corsair)
 
+;;;###autoload
 (defun corsair-open-chat-buffer ()
   "Open or switch to the GPTel chat buffer and set it up for GPTel."
   (interactive)
@@ -48,6 +49,7 @@
       (gptel-mode))
     (switch-to-buffer buffer)))
 
+;;;###autoload
 (defun corsair-accumulate-file-path-and-contents ()
   "Append file path and contents to the GPTel chat buffer."
   (interactive)
@@ -61,6 +63,7 @@
         (insert data))))
    ((user-error "No file associated with this buffer"))))
 
+;;;###autoload
 (defun corsair-accumulate-file-name ()
   "Append file name to the GPTel chat buffer."
   (interactive)
@@ -72,6 +75,7 @@
         (insert "\n" name "\n"))))
    ((user-error "No file associated with this buffer"))))
 
+;;;###autoload
 (defun corsair-accumulate-file-path ()
   "Append file path to the GPTel chat buffer."
   (interactive)
@@ -83,6 +87,7 @@
         (insert "\n" path "\n"))))
    ((user-error "No file associated with this buffer"))))
 
+;;;###autoload
 (defun corsair-accumulate-selected-text ()
   "Append selected text to the GPTel chat buffer."
   (interactive)
@@ -95,6 +100,7 @@
       (deactivate-mark)))
    ((user-error "No region selected"))))
 
+;;;###autoload
 (defun corsair-drop-accumulated-buffer ()
   "Clear the contents of the GPTel chat buffer."
   (interactive)
@@ -111,6 +117,7 @@
         (project-files project)
       (user-error "No project found"))))
 
+;;;###autoload
 (defun corsair-insert-file-or-folder-contents ()
   "Insert contents of a selected file / directory from project into GPTel Chat."
   (interactive)
